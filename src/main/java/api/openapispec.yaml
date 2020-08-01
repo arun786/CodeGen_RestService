@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: OpenApiSpecification
+  description: OpenApiSpecification
+  version: 1.0.0
+  contact:
+    name: Arun
+    email: aruntcs2005@gmail.com
+  license:
+    name: apache
+    url: https://apache.com
+servers:
+  - url: 'https://dev.example.com'
+    description: Development server
+  - url: 'https://qa.example.com'
+    description: QA server
+  - url: 'https://prod.example.com'
+    description: Prod environment
+paths:
+  /v1/customers:
+    get:
+      responses:
+        '200':
+          description: List of Customers
+  /v1/beers:
+    get:
+      responses:
+        '200':
+          description: List of Beers
+        '404':
+          description: Beers not found
+
+
+  
