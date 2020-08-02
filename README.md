@@ -1,1 +1,261 @@
 # CodeGen_RestService
+
+# Basics
+## when components are not used for Response Object
+
+    openapi: 3.0.3
+    info:
+      title: OpenApiSpecification
+      description: OpenApiSpecification
+      version: 1.0.0
+      contact:
+        name: Arun
+        email: aruntcs2005@gmail.com
+      license:
+        name: apache
+        url: https://apache.com
+    servers:
+      - url: 'https://dev.example.com'
+        description: Development server
+      - url: 'https://qa.example.com'
+        description: QA server
+      - url: 'https://prod.example.com'
+        description: Prod environment
+    paths:
+      /v1/customers:
+        get:
+          responses:
+            '200':
+              description: List of Customers
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    description: List of Customers
+                    minItems: 1
+                    maxItems: 100
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        firstName:
+                          type: string
+                          minLength: 2
+                          maxLength: 100
+                        lastName:
+                          type: string
+                          minLength: 2
+                          maxLength: 100
+                        address:
+                          type: object
+                          properties:
+                            line1:
+                              type: string
+                              minLength: 2
+                              maxLength: 100
+                            city:
+                              type: string
+                              minLength: 2
+                              maxLength: 50
+                            stateCode:
+                              type: string
+                              minLength: 2
+                              maxLength: 2
+                              enum:
+                                - AZ
+                                - AK
+                                - AR
+                            zipcode:
+                              type: string
+    
+      /v1/beers:
+        get:
+          responses:
+            '200':
+              description: List of Beers
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    description: List of Beer Objects
+                    minItems: 1
+                    maxItems: 100
+                    items:
+                      type: object
+                      description: beer object
+                      properties:
+                        name:
+                          type: string
+                          minLength: 2
+                          maxLength: 150
+                          example: Arun
+                        style:
+                          type: string
+                          enum:
+                            - ALE
+                            - PALE_ALE
+                            - IPA
+                            - WHEAT
+                            - LAGER
+                        price:
+                          type: number
+                          format: float
+                          example: 10.45
+                        upc:
+                          type: string
+                        qoh:
+                          type: integer
+                          format: int32
+                          example: 10
+                        brewery:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            location:
+                              type: string
+    
+## When Components are used  
+
+    openapi: 3.0.3
+    info:
+      title: OpenApiSpecification
+      description: OpenApiSpecification
+      version: 1.0.0
+      contact:
+        name: Arun
+        email: aruntcs2005@gmail.com
+      license:
+        name: apache
+        url: https://apache.com
+    servers:
+      - url: 'https://dev.example.com'
+        description: Development server
+      - url: 'https://qa.example.com'
+        description: QA server
+      - url: 'https://prod.example.com'
+        description: Prod environment
+    paths:
+      /v1/customers:
+        get:
+          responses:
+            '200':
+              description: List of Customers
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Customers'
+    
+    
+      /v1/beers:
+        get:
+          responses:
+            '200':
+              description: List of Beers
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Beers'
+    
+    components:
+      schemas:
+        Address:
+          type: object
+          properties:
+            line1:
+              type: string
+              minLength: 2
+              maxLength: 100
+            city:
+              type: string
+              minLength: 2
+              maxLength: 50
+            stateCode:
+              type: string
+              minLength: 2
+              maxLength: 2
+              enum:
+                - AZ
+                - AK
+                - AR
+            zipcode:
+              type: string
+    
+        Customer:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            firstName:
+              type: string
+              minLength: 2
+              maxLength: 100
+            lastName:
+              type: string
+              minLength: 2
+              maxLength: 100
+            address:
+              $ref: '#/components/schemas/Address'
+    
+        Customers:
+          type: array
+          description: List of Customers
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/Customer'
+    
+        Beer:
+          type: object
+          description: beer object
+          properties:
+            name:
+              type: string
+              minLength: 2
+              maxLength: 150
+              example: Arun
+            style:
+              type: string
+              enum:
+                - ALE
+                - PALE_ALE
+                - IPA
+                - WHEAT
+                - LAGER
+            price:
+              type: number
+              format: float
+              example: 10.45
+            upc:
+              type: string
+            qoh:
+              type: integer
+              format: int32
+              example: 10
+            brewery:
+              $ref: '#/components/schemas/Brewery'
+    
+        Brewery:
+          type: object
+          properties:
+            name:
+              type: string
+            location:
+              type: string
+    
+        Beers:
+          type: array
+          description: List of Beer Objects
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/Beer'
+    
+    
+    
+    
+    
+      
