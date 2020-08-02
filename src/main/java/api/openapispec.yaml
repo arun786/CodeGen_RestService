@@ -121,13 +121,15 @@ components:
           format: int32
           example: 10
         brewery:
-          type: object
-          properties:
-            name:
-              type: string
-            location:
-              type: string
+          $ref: '#/components/schemas/Brewery'
 
+    Brewery:
+      type: object
+      properties:
+        name:
+          type: string
+        location:
+          type: string
 
 
 
