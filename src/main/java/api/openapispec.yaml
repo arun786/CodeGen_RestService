@@ -25,12 +25,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                description: List of Customers
-                minItems: 1
-                maxItems: 100
-                items:
-                  $ref: '#/components/schemas/Customer'
+                $ref: '#/components/schemas/Customers'
 
 
   /v1/beers:
@@ -89,6 +84,14 @@ components:
           maxLength: 100
         address:
           $ref: '#/components/schemas/Address'
+
+    Customers:
+      type: array
+      description: List of Customers
+      minItems: 1
+      maxItems: 100
+      items:
+        $ref: '#/components/schemas/Customer'
 
     Beer:
       type: object
