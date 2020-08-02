@@ -46,39 +46,8 @@ paths:
                 minItems: 1
                 maxItems: 100
                 items:
-                  type: object
-                  description: beer object
-                  properties:
-                    name:
-                      type: string
-                      minLength: 2
-                      maxLength: 150
-                      example: Arun
-                    style:
-                      type: string
-                      enum:
-                        - ALE
-                        - PALE_ALE
-                        - IPA
-                        - WHEAT
-                        - LAGER
-                    price:
-                      type: number
-                      format: float
-                      example: 10.45
-                    upc:
-                      type: string
-                    qoh:
-                      type: integer
-                      format: int32
-                      example: 10
-                    brewery:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                        location:
-                          type: string
+                  $ref: '#/components/schemas/Beer'
+
 
 components:
   schemas:
@@ -121,7 +90,40 @@ components:
         address:
           $ref: '#/components/schemas/Address'
 
-
+    Beer:
+      type: object
+      description: beer object
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 150
+          example: Arun
+        style:
+          type: string
+          enum:
+            - ALE
+            - PALE_ALE
+            - IPA
+            - WHEAT
+            - LAGER
+        price:
+          type: number
+          format: float
+          example: 10.45
+        upc:
+          type: string
+        qoh:
+          type: integer
+          format: int32
+          example: 10
+        brewery:
+          type: object
+          properties:
+            name:
+              type: string
+            location:
+              type: string
 
 
 
